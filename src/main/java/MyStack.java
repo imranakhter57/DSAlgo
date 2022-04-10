@@ -1,11 +1,11 @@
 import java.lang.reflect.Array;
 
-public class Stack<T> {
+public class MyStack<T> {
     private final int MAX =1000;
     private T[] dataArray;
     private int size;
     private int top;
-    public Stack(int size){
+    public MyStack(int size){
         if(this.MAX < size){
             System.out.println("Size cannot be more than 1000");
             throw new StackOverflowError();

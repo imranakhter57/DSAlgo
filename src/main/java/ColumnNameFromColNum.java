@@ -1,7 +1,7 @@
 public class ColumnNameFromColNum {
 
     public static void main(String[] args) {
-        System.out.println(colName(470211273));
+        System.out.println(colName(26));
     }
     
     public static String colName(long n){

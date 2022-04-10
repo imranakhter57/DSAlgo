@@ -12,7 +12,7 @@ public class SubSeq {
     }
     public static void main(String[] args) {
         List<String> res = new ArrayList<>();
-        printSubSeq("ab","",res);
+        printSubSeq("abcded","",res);
         System.out.println(res);
     }
 }

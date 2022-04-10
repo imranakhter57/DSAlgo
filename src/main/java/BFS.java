@@ -13,13 +13,12 @@ public class BFS {
         visited.add(0);
         
         while(!visited.isEmpty()){
-            Integer visitedInd = visited.poll();
-            if(ans.contains(visitedInd)){
+            Integer vis = visited.poll();
+            if(ans.contains(vis)){
                 continue;
             }
-            ans.add(visitedInd);
-            List<Integer> child = adj.get(visitedInd);
-            child.stream().forEach(x->visited.add(x));
+            ans.add(vis);
+            adj.get(vis).forEach(x-> visited.add(x));
         }
         System.out.println(ans);
     }
