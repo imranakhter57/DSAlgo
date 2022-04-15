@@ -6,50 +6,54 @@ import java.util.Scanner;
 
 public class QueenNString {
     public static void main(String[] args) throws UnsupportedEncodingException {
-        Scanner s = new Scanner(System.in);
-        List<String> ans = new ArrayList<>();
-        int n = s.nextInt();
-        int[][] chess = new int[n][n];
-        printNQueens(chess, "",0,ans);
-        for(int i =0; i<n; i++){
-            System.out.println(ans.get(i));
+        int n = 4;
+        int[][] chess = new int[4][4];
+        List<int[]> ans = new ArrayList<>();
+        printNQueen(chess,0,ans);
+        for(int i=0;i<chess.length;i++){
+            for (int j=0;j< chess.length; j++){
+                System.out.print(ans.get(i)[j]);
+            }
+            System.out.println();
         }
-        
     }
     
-    public static void printNQueens(int[][] chess, String qsf, int row, List<String> ans){
-        if(row==chess.length){
-            for(int i =0; i <row; i++){
-                ans.add(Arrays.toString(chess[i]).replace(",","").replace("[","").replace("]",""));
+    public static void printNQueen(int[][] chess, int r, List<int[]> ans){
+        if(r == chess.length){
+            for(int i=0;i<chess.length;i++){
+                ans.add(chess[i].clone());
             }
             return;
         }
-        for(int col=0;col< chess.length; col++){
-            if(isQueenSafe(chess, row, col)) {
-                chess[row][col] = 1;
-                printNQueens(chess, qsf + row + "-" + col + ", ", row + 1, ans);
-                chess[row][col] = 0;
+        
+        for(int i=0;i<chess.length;i++){
+            if(isQueenSafe(chess,r,i)) {
+                chess[r][i] = 1;
+                printNQueen(chess, r + 1, ans);
+                chess[r][i] = 0;
             }
         }
     }
     
-    public static boolean isQueenSafe(int[][] chess, int row, int col){
-        boolean isSafe = true;
-        for(int i= row-1, j=col; i>=0; i--){
-            if(chess[i][j] ==1) 
-                isSafe=false;
-            
+    private static boolean isQueenSafe(int[][] chess , int r, int c){
+        for(int i=r-1;i>=0;i--){
+            if(chess[i][c] == 1){
+                return false;
+            }
         }
         
-        for(int i= row-1, j=col-1; i>=0 && j>=0; i--, j--){
-            if(chess[i][j] ==1)
-                isSafe=false;
+        for(int i=r-1,j=c-1; i>=0&&j>=0; i--,j--){
+            if(chess[i][j] == 1){
+                return false;
+            }
         }
 
-        for(int i= row-1, j=col+1; i>=0 && j<chess.length; i--, j++){
-            if(chess[i][j] ==1)
-                isSafe=false;
+        for(int i=r-1,j=c+1; i>=0&&j<chess.length; i--,j++){
+            if(chess[i][j] == 1){
+                return false;
+            }
         }
-        return isSafe;
+        
+        return true;
     }
 }

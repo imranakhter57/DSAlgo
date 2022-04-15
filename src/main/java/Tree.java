@@ -1,5 +1,7 @@
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 import java.util.Stack;
@@ -8,9 +10,9 @@ public class Tree {
     
     Node root;
     class Node{
-        int val;
-        Node leftNode;
-        Node rightNode;
+        public int val;
+        public Node leftNode;
+        public Node rightNode;
         public Node(int val){
             this.val=val;
         }
@@ -83,17 +85,75 @@ public class Tree {
         return false;
     }
 
+    public static boolean isSameTree(Node p, Node q) {
+        Queue<Node> qp = new ArrayDeque<>();
+        Queue<Node> qq = new ArrayDeque<>();
+        qp.add(p);
+        qq.add(q);
+        while(!qp.isEmpty() && !qq.isEmpty()){
+            Node currP = qp.remove();
+            Node currQ = qq.remove();
+            if(currP.val != currQ.val){
+                return false;
+            }
+
+
+            if(currP.leftNode != null){
+                qp.add(currP.leftNode);
+            }
+            if(currQ.leftNode != null){
+                qq.add(currQ.leftNode);
+            }
+
+            if(currP.rightNode != null){
+                qp.add(currP.rightNode);
+            }
+
+            if(currQ.rightNode != null){
+                qq.add(currQ.rightNode);
+            }
+        }
+
+        return true;
+    }
+
+    public static boolean isSymmetricTree(Node p, Node q) {
+        Stack<Node> qp = new Stack<>();
+        Stack<Node> qq = new Stack<>();
+        qp.push(p);
+        qq.push(q);
+        while(!qp.isEmpty() && !qq.isEmpty()){
+            Node currP = qp.pop();
+            Node currQ = qq.pop();
+            if(currP.val != currQ.val){
+                return false;
+            }
+
+
+            if(currP.leftNode != null){
+                qp.add(currP.leftNode);
+            }
+            if(currP.rightNode != null){
+                qp.add(currP.rightNode);
+            }
+            
+            if(currQ.rightNode != null){
+                qq.add(currQ.rightNode);
+            }
+            if(currQ.leftNode != null){
+                qq.add(currQ.leftNode);
+            }
+        }
+
+        return true;
+    }
+
     public static void main(String[] args) {
         Tree tree = new Tree();
-        tree.add(5);
-        tree.add(4);
-        tree.add(6);
-        tree.add(10);
-        tree.add(12);
-        tree.add(8);
-        tree.add(10);
-        System.out.println(tree.isPresentUsingDFS(10));
-        System.out.println(tree.isPresentUsingDFS(11));
-        System.out.println(tree.isPresentUsingDFS(12));
+        tree.add(1);
+        tree.add(2);
+        tree.add(2);
+        System.out.println(isSymmetricTree(tree.root, tree.root));
+        
     }
 }
